@@ -4,6 +4,7 @@ import json
 import datetime
 import os
 import random
+import time
 
 from google.cloud import pubsub_v1
 
@@ -50,7 +51,15 @@ class Publisher:
 
 
 if __name__ == "__main__":
-    pub = Publisher()
-    pub.publish()
+    try:
+        while True:
+            pub = Publisher()
+            pub.publish()
+            time.sleep(13)
+    except KeyboardInterrupt:
+        pass
+
+
+
 
 
