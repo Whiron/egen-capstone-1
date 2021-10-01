@@ -24,7 +24,7 @@ class Publisher:
     def __init__(self):
         self.project_id = "egen-project-1-327215"
         self.topic_id = "stock_market"
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "egen-project-1-327215-261475be0596.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "egen-project-1-327215-1294007c4e28.json"
 
     def fetch_data(self):
         date=random_date()
