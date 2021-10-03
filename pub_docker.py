@@ -9,7 +9,7 @@ import time
 from google.cloud import pubsub_v1
 
 def random_date():
-    start_date = datetime.date(2020, 1, 1)
+    start_date = datetime.date(2021, 1, 1)
     end_date = datetime.date.today()
 
     time_between_dates = end_date - start_date
@@ -29,10 +29,12 @@ class Publisher:
 
     def fetch_data(self):
         date=random_date()
-        url="https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"+date+"?adjusted=trueapiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
+        # url = "https://api.polygon.io/v3/reference/tickers?date=" + date + "&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
+        url="https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"+date+"?adjusted=true&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         response = requests.get(url)
-        df = pd.DataFrame(response.json()['results'])
-        # print(df)
+        print(response.json())
+        # df = pd.DataFrame(response.json()['results'])
+        # # print(df)
 
         string_msg = json.dumps(response.json()['results'])+date
         string_msg = string_msg.encode("utf-8")
@@ -55,7 +57,7 @@ if __name__ == "__main__":
         while True:
             pub = Publisher()
             pub.publish()
-            time.sleep(13)
+            time.sleep(15)
     except KeyboardInterrupt:
         pass
 
