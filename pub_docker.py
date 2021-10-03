@@ -29,7 +29,7 @@ class Publisher:
 
     def fetch_data(self):
         date=random_date()
-        url="https://api.polygon.io/v3/reference/tickers?date="+date+"&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
+        url="https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"+date+"?adjusted=trueapiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         response = requests.get(url)
         df = pd.DataFrame(response.json()['results'])
         # print(df)
