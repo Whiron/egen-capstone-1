@@ -38,6 +38,8 @@ class Publisher:
         # url = "https://api.polygon.io/v3/reference/tickers?date=" + date + "&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         url="https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"+date+"?adjusted=true&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         response = requests.get(url)
+        if response.json()["queryCount"] == 0:
+            return False
         # print(response.json())
         # df = pd.DataFrame(response.json()['results'])
         # # print(df)
@@ -52,7 +54,12 @@ class Publisher:
         publisher = pubsub_v1.PublisherClient()
         topic_path = publisher.topic_path(self.project_id, self.topic_id)
 
-        data=self.fetch_data()
+        date_flag=True
+        data=False
+        while date_flag == True:
+            data=self.fetch_data()
+            if data!=False:
+                date_flag=False
 
         future = publisher.publish(topic_path,data)
         print(future.result())
