@@ -9,15 +9,21 @@ import time
 from google.cloud import pubsub_v1
 
 def random_date():
-    start_date = datetime.date(2021, 1, 1)
-    end_date = datetime.date.today()
+    flag=True
+    random_date=""
+    while flag == True:
+        start_date = datetime.date(2021, 1, 1)
+        end_date = datetime.date.today()
 
-    time_between_dates = end_date - start_date
-    days_between_dates = time_between_dates.days
+        time_between_dates = end_date - start_date
+        days_between_dates = time_between_dates.days
 
-    random_number_of_days = random.randrange(days_between_dates)
+        random_number_of_days = random.randrange(days_between_dates)
 
-    random_date = start_date + datetime.timedelta(days=random_number_of_days)
+        random_date = start_date + datetime.timedelta(days=random_number_of_days)
+
+        if random_date.weekday() < 5:
+            flag = False
 
     return str(random_date)
 
@@ -32,7 +38,7 @@ class Publisher:
         # url = "https://api.polygon.io/v3/reference/tickers?date=" + date + "&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         url="https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/"+date+"?adjusted=true&apiKey=Kpmdf46Y_Qpdodwv5sj9Df92Dl9UiP2z"
         response = requests.get(url)
-        print(response.json())
+        # print(response.json())
         # df = pd.DataFrame(response.json()['results'])
         # # print(df)
 
